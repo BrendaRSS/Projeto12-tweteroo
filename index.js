@@ -40,6 +40,21 @@ const ultimosTweetsPublicados = [
 	{
 		username: "bobesponja",
 		avatar: "https://cdns-images.dzcdn.net/images/artist/77220ccb5a36d0e5df2c9e47f2c89de4/500x500.jpg",
+		tweet: "eu amo o hub"
+	},
+	{
+		username: "bobesponja",
+		avatar: "https://cdns-images.dzcdn.net/images/artist/77220ccb5a36d0e5df2c9e47f2c89de4/500x500.jpg",
+		tweet: "eu amo o hub"
+	},
+	{
+		username: "bobesponja",
+		avatar: "https://cdns-images.dzcdn.net/images/artist/77220ccb5a36d0e5df2c9e47f2c89de4/500x500.jpg",
+		tweet: "eu amo o hub"
+	},
+	{
+		username: "bobesponja",
+		avatar: "https://cdns-images.dzcdn.net/images/artist/77220ccb5a36d0e5df2c9e47f2c89de4/500x500.jpg",
 		tweet: "Eu gosto de encher o saco das pessoas que eu amo"
 	},
 	{
@@ -53,24 +68,24 @@ const ultimosTweetsPublicados = [
 		tweet: "Acredite na fantasia que você quiser mas faça isso longe de mim"
 	},
 	{
-		username: "bobesponja",
-		avatar: "https://cdns-images.dzcdn.net/images/artist/77220ccb5a36d0e5df2c9e47f2c89de4/500x500.jpg",
-		tweet: "eu amo o hub"
-	},
-	{
-		username: "bobesponja",
-		avatar: "https://cdns-images.dzcdn.net/images/artist/77220ccb5a36d0e5df2c9e47f2c89de4/500x500.jpg",
-		tweet: "eu amo o hub"
-	},
-	{
-		username: "bobesponja",
-		avatar: "https://cdns-images.dzcdn.net/images/artist/77220ccb5a36d0e5df2c9e47f2c89de4/500x500.jpg",
-		tweet: "eu amo o hub"
-	},
-	{
 		username: "cat",
 		avatar: "https://super.abril.com.br/wp-content/uploads/2020/09/04-09_gato_SITE.jpg?quality=70&strip=info",
 		tweet: "eu amo o hub"
+	},
+	{
+		username: "coragem",
+		avatar: "http://24.media.tumblr.com/tumblr_m328v7ZOvX1r65xbpo1_500.gif",
+		tweet: "Eu gosto de bob esponja"
+	},
+	{
+		username: "Catedog",
+		avatar: "https://www.hypeness.com.br/1/2018/09/25247072b28ced1a13d935dc1445b9dd.1000x842x1-e1536014997910.jpg",
+		tweet: "Eu gosto do molusco"
+	},
+	{
+		username: "Gary",
+		avatar: "http://pa1.narvii.com/6343/be20b6ad3a6451eda2e13646de2aa8ff81f5b694_00.gif",
+		tweet: "EU gosto de programar"
 	}
 ]
 
@@ -90,12 +105,26 @@ app.post("/tweets", (req, res) => {
 	console.log("tweet:",tweet)
 	console.log("tweets:", tweets)
 	console.log("usuarios:",usuarios)
+
+	let newTweet={
+		username:tweet.username,
+		avatar:avatarDoUsuario,
+		tweet:tweet.tweet
+	}
 	
+	ultimosTweetsPublicados.push(newTweet)
+	console.log(ultimosTweetsPublicados)
+
 	res.send("ok")
 })
 
 app.get("/tweets", (req, res) => {
-	res.send(ultimosTweetsPublicados);
+	let lastTweet=[]
+	for(let i=1;i<=10;i++){
+		lastTweet.push(ultimosTweetsPublicados[ultimosTweetsPublicados.length-i])
+	}
+	console.log("10 tweets:", lastTweet)
+	res.send(lastTweet);
 });
 
 app.listen(5000);
