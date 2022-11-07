@@ -92,30 +92,46 @@ const ultimosTweetsPublicados = [
 let avatarDoUsuario=""
 
 app.post("/sign-up", (req, res) => {
-	const login = req.body
-	usuarios.push(login)
-	avatarDoUsuario=login.avatar
+	const {username, avatar} = req.body;
 
-	res.send("ok")
+	if(!username||!avatar){
+		res.status(400).send("Todos os campos são obrigatórios!");
+		return;
+	}
+
+	let login={
+		username:username,
+		avatar:avatar
+	};
+
+	usuarios.push(login);
+	avatarDoUsuario=avatar;
+
+	res.status(201).send("ok")
 })
 
 app.post("/tweets", (req, res) => {
-	const tweet = req.body
-	tweets.push(tweet)
-	console.log("tweet:",tweet)
-	console.log("tweets:", tweets)
-	console.log("usuarios:",usuarios)
+	const {tweet, username} = req.body;
+	tweets.push(tweet);
+	// console.log("tweet:",tweet)
+	// console.log("tweets:", tweets)
+	// console.log("usuarios:",usuarios)
+
+	if(!tweet||!username){
+		res.status(400).send("Todos os campos são obrigatórios!");
+		return;
+	}
 
 	let newTweet={
-		username:tweet.username,
+		username:username,
 		avatar:avatarDoUsuario,
-		tweet:tweet.tweet
+		tweet:tweet
 	}
 	
 	ultimosTweetsPublicados.push(newTweet)
 	console.log(ultimosTweetsPublicados)
 
-	res.send("ok")
+	res.status(201).send("ok")
 })
 
 app.get("/tweets", (req, res) => {
@@ -123,7 +139,7 @@ app.get("/tweets", (req, res) => {
 	for(let i=1;i<=10;i++){
 		lastTweet.push(ultimosTweetsPublicados[ultimosTweetsPublicados.length-i])
 	}
-	console.log("10 tweets:", lastTweet)
+	// console.log("10 tweets:", lastTweet)
 	res.send(lastTweet);
 });
 
